@@ -1,0 +1,21 @@
+{
+    "name": "student/forum-refactor",
+    "description": "Nested forum replies lab (PHP, MySQL, PDO)",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "bramus/router": "^1.6",
+        "mustache/mustache": "^2.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "scripts": {
+        "serve": "php -S localhost:8000 -t public public/index.php",
+        "test": "php tests/CommentTreeTest.php"
+    }
+}

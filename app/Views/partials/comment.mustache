@@ -1,0 +1,27 @@
+<article class="comment" id="comment-{{id}}" {{#has_children}}data-replies="replies-{{id}}"{{/has_children}}>
+    <header class="comment-meta">
+        <img class="avatar" src="{{avatar}}" alt="" width="32" height="32">
+        <strong>{{author}}</strong>
+        <span class="depth">Depth {{depth}}</span>
+        <time>{{created_at}}</time>
+    </header>
+    <p class="comment-body">{{body}}</p>
+    <div class="comment-actions">
+        {{#logged_in}}
+        <details class="reply-box">
+            <summary>Reply</summary>
+            <form method="post" action="/discussions/{{discussion.id}}/comments/{{id}}/replies">
+                <input type="hidden" name="csrf_token" value="{{csrf}}">
+                <label for="reply-body-{{id}}">Reply to {{author}}</label>
+                <textarea id="reply-body-{{id}}" name="body" rows="3" maxlength="2000" required></textarea>
+                <button type="submit">Post reply</button>
+            </form>
+        </details>
+        {{/logged_in}}
+    </div>
+    {{#has_children}}
+    <div class="replies{{#indent_children}} replies--indent{{/indent_children}}" id="replies-{{id}}">
+        {{#children}}{{> comment}}{{/children}}
+    </div>
+    {{/has_children}}
+</article>

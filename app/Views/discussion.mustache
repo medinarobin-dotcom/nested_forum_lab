@@ -1,0 +1,28 @@
+{{> header}}
+<article class="discussion">
+    <h1>{{discussion.title}}</h1>
+    <p class="meta">Started by <strong>{{discussion.author}}</strong> · <time>{{discussion.created_at_utc}}</time></p>
+    <p class="comment-body">{{discussion.body}}</p>
+</article>
+
+<section class="thread" aria-label="Comments">
+    <h2>Comments</h2>
+    {{#comments}}{{> comment}}{{/comments}}
+    {{#no_comments}}<p>No comments yet.</p>{{/no_comments}}
+</section>
+
+<section class="new-comment">
+    {{#logged_in}}
+    <h2>Add a top-level comment</h2>
+    <form method="post" action="/discussions/{{discussion.id}}/comments">
+        <input type="hidden" name="csrf_token" value="{{csrf}}">
+        <label for="new-comment-body">Your comment</label>
+        <textarea id="new-comment-body" name="body" rows="4" maxlength="2000" required></textarea>
+        <button type="submit">Post comment</button>
+    </form>
+    {{/logged_in}}
+    {{^logged_in}}
+    <p><a href="/login">Log in</a> or <a href="/register">register</a> to post a reply.</p>
+    {{/logged_in}}
+</section>
+{{> footer}}
